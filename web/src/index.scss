@@ -2,16 +2,19 @@ $mainColor: #22232c;
 $textColor: #c1c2c5;
 $mainFont: Roboto;
 
-$secondaryColor: rgba(12, 12, 12, 0.4);
+$secondaryColor: #0D0112;
 $secondaryColorHighlight: #33343F;
-$secondaryColorLight: rgba(0, 0, 0, 0.5);
-$secondaryColorDark: rgba(12, 12, 12, 0.8);
+$secondaryColorLight: #161619;
+$secondaryColorDark: #0E0E12;
 
-$gridCols: 5;
-$gridRows: 5;
+$gridCols: 6;
+$gridRows: 6;
+$gridCols-right: 4;
+$gridRows-right: 5;
 $gridSize: 10.2vh;
-$gridGap: 2px;
+$gridGap: 0.5rem;
 $containerSize: calc(#{$gridRows} * #{$gridSize + 0.22vh} + #{$gridRows} * #{$gridGap});
+$containerSize-right: calc(#{$gridRows-right} * #{$gridSize + 0.22vh} + #{$gridRows-right} * #{$gridGap});
 
 body {
   margin: 0;
@@ -23,6 +26,46 @@ body {
   background: none !important;
   overflow: hidden !important;
   user-select: none;
+}
+
+.hotslot-wrapper {
+  display: grid;
+  width: $gridSize;
+  height: fit-content;
+  grid-template-columns: repeat(1, $gridSize);
+  grid-template-rows: repeat(5, $gridSize);
+  gap: $gridGap;
+}
+
+
+.hotslot-container {
+  background-color: $secondaryColor;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 15px;
+  // border-radius: 10px;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+  gap: 30px;
+  height: fit-content;
+  width: fit-content;
+  // margin-top: 5px;
+  border-top: 2px solid #d813d8;
+  border-bottom: 2px solid #d813d8;
+  border-left: 2px solid #d813d8;
+  &::before {
+    content: "";
+    position: absolute;
+    right: -2px;
+    top: 50%;
+    transform: translateY(-50%);
+    height: 100.1%; // Adjust this to change the size of the gap
+    width: 2px;
+    background-color: $secondaryColor; // Adjust this to match the background color
+    z-index: 1;
+  }
 }
 
 #root {
@@ -58,7 +101,7 @@ input[type='number']::-webkit-outer-spin-button {
 
 .context-menu-list {
   min-width: 200px;
-  background-color: $mainColor;
+  background-color: $secondaryColor;
   color: $textColor;
   padding: 4px;
   border-color: rgba(0, 0, 0, 0.2);
@@ -84,13 +127,14 @@ input[type='number']::-webkit-outer-spin-button {
     transform: none;
   }
   &:hover {
-    background-color: $secondaryColorHighlight;
+    background-color: #30012e;
     cursor: pointer;
   }
 }
 
 .tooltip-description {
   padding-top: 5px;
+  z-index: 1;
 }
 
 .tooltip-markdown > p {
@@ -115,6 +159,24 @@ button:active {
   image-rendering: -webkit-optimize-contrast;
 }
 
+.inventory-wrapper-container {
+  position: relative;
+  background-color: $secondaryColor;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: start;
+  gap: 30px;
+  padding: 20px;
+  border-radius: 10px;
+  margin-bottom: 5px;
+  border-top: 2px solid #d813d8;
+  border-bottom: 2px solid #d813d8;
+  border-left: 2px solid #d813d8;
+  border-right: 2px solid #d813d8;
+}
+
+
 .inventory-wrapper {
   display: flex;
   flex-direction: row;
@@ -122,12 +184,12 @@ button:active {
   align-items: center;
   height: 100%;
 
-  gap: 20px;
+  // gap: 20px;
 }
 
 .inventory-control {
   display: flex;
-
+  margin-top: 5rem;
   .inventory-control-wrapper {
     display: flex;
     flex-direction: column;
@@ -138,37 +200,41 @@ button:active {
 
   .inventory-control-input {
     transition: 200ms;
-    padding: 16px 8px;
-    border-radius: 2.5%;
-    font-family: $mainFont;
+    padding: 0.4rem 0;
+    border-radius: 5px;
+    height: 2.7vh;
+    width: 10vh;
+    font-family: Roboto;
     font-size: 16px;
     text-align: center;
     outline: none;
-    border: none;
+    border: solid 0.5px;
+    border-color: #c1c2c5;
     color: #fff;
     background-color: $secondaryColor;
-    &:focus-within {
-      background-color: $secondaryColorDark;
+        &:focus-within {
+      background-color: $secondaryColorLight;
     }
   }
 
   .inventory-control-button {
-    font-size: 14px;
-    color: #fff;
-    background-color: $secondaryColor;
-    transition: 200ms;
-    padding: 12px 8px;
-    border-radius: 2.5%;
-    border: none;
+    transition: 0.2s;
     text-transform: uppercase;
-    font-family: $mainFont;
-    width: 100%;
-    font-weight: 500;
+    height: 2.7em;
+    width: 10vh;
+    font-family: Roboto;
+    font-size: 1.5vh;
+    outline: none;
+    border: solid 0.5px;
+    border-color: rgba(193, 194, 197, 0.3529411765);
+    border-radius: 5px;
+    color: #c1c2c5;
+    background-color: rgba(255, 255, 255, 0);
     &:hover {
-      background-color: $secondaryColorDark;
+      background-color: #30012e;
+    }
     }
   }
-}
 
 .useful-controls-dialog {
   background-color: $mainColor;
@@ -207,7 +273,7 @@ button:active {
   border-radius: 4px;
   fill: $textColor;
   &:hover {
-    background-color: $secondaryColorHighlight;
+    background-color: #30012e;
     cursor: pointer;
   }
 }
@@ -240,7 +306,7 @@ button:active {
   border-radius: 5% !important;
   background-color: $secondaryColor !important;
   &:hover {
-    background-color: $secondaryColorDark !important;
+    background-color: $secondaryColorLight !important;
     cursor: pointer;
   }
 }
@@ -279,13 +345,22 @@ button:active {
   gap: $gridGap;
   overflow-y: scroll;
 }
+.inventory-grid-container-right {
+  display: grid;
+  height: $containerSize;
+  grid-template-columns: repeat($gridCols-right, $gridSize);
+  grid-auto-rows: $gridSize + 0.22vh;
+  gap: $gridGap;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
 
 // inventory slots
 .inventory-slot {
-  background-color: $secondaryColor;
+  background-color: $secondaryColorLight;
   background-repeat: no-repeat;
   background-position: center;
-  border-radius: 2.5%;
+  border-radius: 7.5%;
   image-rendering: -webkit-optimize-contrast;
   position: relative;
   background-size: 7vh;
@@ -293,10 +368,14 @@ button:active {
   border-color: rgba(0, 0, 0, 0.2);
   border-style: inset;
   border-width: 1px;
+  &:hover {
+    background-color: #30012eaa;
+    cursor: pointer;
+  }
 }
 
 .inventory-slot-label-box {
-  background-color: $mainColor;
+  // background-color: $mainColor;
   color: $textColor;
   text-align: center;
   border-bottom-left-radius: 0.25vh;
@@ -314,16 +393,17 @@ button:active {
   padding: 2px 3px;
   font-weight: 400;
   font-family: $mainFont;
-  font-size: 12px;
+  font-size: 8px;
 }
 
 .inventory-slot-number {
-  background-color: white;
-  color: black;
+  background-color: transparent;
+  color: #818181;
   height: 12px;
-  border-top-left-radius: 0.25vh;
-  border-bottom-right-radius: 0.25vh;
-  padding: 3px;
+  border-top-left-radius: 0.55vh;
+  border: 1px solid #818181;
+  // border-bottom-right-radius: 0.25vh;
+  padding: 2px;
   font-size: 12px;
   font-family: $mainFont;
 }
@@ -356,7 +436,7 @@ button:active {
   padding: 3px;
   gap: 3px;
   p {
-    font-size: 12px;
+    font-size: 8px;
   }
 }
 
@@ -387,7 +467,7 @@ button:active {
 .tooltip-wrapper {
   pointer-events: none;
   display: flex;
-  background-color: $mainColor;
+  background-color: $secondaryColor;
   width: 200px;
   padding: 8px;
   flex-direction: column;
@@ -402,6 +482,7 @@ button:active {
     font-size: 12px;
     font-weight: 400;
   }
+  z-index: 1;
 }
 
 .tooltip-header-wrapper {
@@ -513,7 +594,7 @@ button:active {
   background: rgba(0, 0, 0, 0.4);
   border: 1px inset rgba(0, 0, 0, 0.1);
   height: 0.8vh;
-  border-radius: 5%;
+  border-radius: 15px;
   overflow: hidden;
 }
 

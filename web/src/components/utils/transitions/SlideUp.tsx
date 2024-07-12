@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React from 'react';
 import { CSSTransition } from 'react-transition-group';
 
 interface Props {
@@ -7,7 +7,7 @@ interface Props {
 }
 
 const SlideUp: React.FC<Props> = (props) => {
-  const nodeRef = useRef(null);
+  const nodeRef = React.useRef(null);
 
   return (
     <CSSTransition nodeRef={nodeRef} in={props.in} timeout={200} classNames="transition-slide-up" unmountOnExit>

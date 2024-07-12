@@ -1,5 +1,6 @@
 import { createSlice, current, isFulfilled, isPending, isRejected, PayloadAction } from '@reduxjs/toolkit';
 import type { RootState } from '.';
+import { Slot, State } from '../typings';
 import {
   moveSlotsReducer,
   refreshSlotsReducer,
@@ -7,7 +8,6 @@ import {
   stackSlotsReducer,
   swapSlotsReducer,
 } from '../reducers';
-import { State } from '../typings';
 
 const initialState: State = {
   leftInventory: {
