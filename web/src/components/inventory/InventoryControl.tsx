@@ -8,6 +8,7 @@ import { onGive } from '../../dnd/onGive';
 import { fetchNui } from '../../utils/fetchNui';
 import { Locale } from '../../store/locale';
 import UsefulControls from './UsefulControls';
+import { FaWindowClose } from 'react-icons/fa';
 
 const InventoryControl: React.FC = () => {
   const itemAmount = useAppSelector(selectItemAmount);
@@ -53,9 +54,15 @@ const InventoryControl: React.FC = () => {
           <button className="inventory-control-button" ref={give}>
             {Locale.ui_give || 'Give'}
           </button>
-          <button className="inventory-control-button" onClick={() => fetchNui('exit')}>
-            {Locale.ui_close || 'Close'}
-          </button>
+          <div className='close'>
+              <div className='close-text'>
+                <span>{Locale.ui_close || 'CLOSE'}</span>
+                <span className='inventory'>Inventory</span>
+              </div>
+            <button className="close-button" onClick={() => fetchNui('exit')}>
+              <FaWindowClose className='close-icon'/>
+            </button>
+          </div>
         </div>
       </div>
 

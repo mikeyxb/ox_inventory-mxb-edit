@@ -20,7 +20,7 @@ const COLORS = {
   accentColor: [211, 84, 0], // Orange (Oragne)
 };
 
-const WeightBar: React.FC<{ percent: number; durability?: boolean }> = ({ percent, durability }) => {
+const ItemDurabilty: React.FC<{ percent: number; durability?: boolean }> = ({ percent, durability }) => {
   const color = useMemo(
     () =>
       durability
@@ -33,39 +33,18 @@ const WeightBar: React.FC<{ percent: number; durability?: boolean }> = ({ percen
     [durability, percent]
   );
 
-  // Create 50 sections, each representing 2% of the weight
-  const sections = useMemo(() => {
-    const filledSections = Math.floor(percent / 2); // Each section is 2%
-    return Array.from({ length: 50 }, (_, index) => {
-      const isFilled = index < filledSections;
-      return (
-        <div
-          key={index}
-          style={{
-            display: 'inline-block',
-            height: '100%',
-            width: '2%',
-            backgroundColor: isFilled ? color : '#808080',
-            transform: 'skewX(-10deg)', // Slight tilt to the right
-            marginRight: '0px',
-            transition: `background ${0.3}s ease`,
-            marginInline: '2px',
-          }}
-        />
-      );
-    });
-  }, [percent, color]);
-
   return (
-    <div
-      className={durability ? 'durability-bar' : 'weight-bar'}
-      style={{
-        display: 'flex',
-        overflow: 'hidden'
-      }}
-    >
-      {sections}
+    <div className={durability ? 'durability-bar' : 'weight-bar'}>
+      <div
+        style={{
+          visibility: percent > 0 ? 'visible' : 'hidden',
+          height: '100%',
+          width: `${percent}%`,
+          backgroundColor: color,
+          transition: `background ${0.3}s ease, width ${0.3}s ease`,
+        }}
+      ></div>
     </div>
   );
 };
-export default WeightBar;
+export default ItemDurabilty;

@@ -9,8 +9,8 @@ $secondaryColorDark: rgba(12, 12, 12, 0.8);
 
 $gridCols: 5;
 $gridRows: 5;
-$gridSize: 10.2vh;
-$gridGap: 2px;
+$gridSize: 11vh;
+$gridGap: 10px;
 $containerSize: calc(#{$gridRows} * #{$gridSize + 0.22vh} + #{$gridRows} * #{$gridGap});
 
 body {
@@ -34,8 +34,20 @@ code {
 }
 
 ::-webkit-scrollbar {
-  display: none;
-}
+  width: 0.3em;
+  border-radius: 20px;
+  }
+
+::-webkit-scrollbar-track {
+  margin-left: 5px;
+  -webkit-box-shadow: inset 0 0 6px #2C2D32
+  }
+
+::-webkit-scrollbar-thumb {
+  outline: 5px #22232c;
+  background-color: #f5f5f5;
+  border-radius: 20px;
+  }
 
 p {
   margin: 0;
@@ -121,8 +133,9 @@ button:active {
   justify-content: center;
   align-items: center;
   height: 100%;
-
+  background: #191a1ff9;
   gap: 20px;
+  position: relative;
 }
 
 .inventory-control {
@@ -134,12 +147,14 @@ button:active {
     gap: 20px;
     justify-content: center;
     align-items: center;
+    width: 100px;
   }
 
   .inventory-control-input {
+    width: 100px;
     transition: 200ms;
-    padding: 16px 8px;
-    border-radius: 2.5%;
+    padding: 10px 4px;
+    border-radius: 999px;
     font-family: $mainFont;
     font-size: 16px;
     text-align: center;
@@ -158,7 +173,7 @@ button:active {
     background-color: $secondaryColor;
     transition: 200ms;
     padding: 12px 8px;
-    border-radius: 2.5%;
+    border-radius: 999px;
     border: none;
     text-transform: uppercase;
     font-family: $mainFont;
@@ -167,6 +182,47 @@ button:active {
     &:hover {
       background-color: $secondaryColorDark;
     }
+  }
+
+}
+
+.close {
+  display: flex;
+  position: absolute;
+  width: fit;
+  top: 2rem;
+  right: 4rem;
+  text-transform: capitalize;
+  font-size: 20px;
+  font-weight: 700;
+  justify-content: center;
+  align-items: center;
+  gap: 0.2rem;
+}
+
+.close-button {
+  background-color: transparent;
+  box-shadow: none;
+  border: none;
+  display: flex;
+
+}
+
+.close-icon {
+  font-size: 50px;
+  color: #c1c2c5;
+}
+
+.close-text{
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
+  text-align: end;
+  padding:3px;
+
+  .inventory{
+    font-size: 18px;
+    font-weight: 400;
   }
 }
 
@@ -275,9 +331,10 @@ button:active {
   display: grid;
   height: $containerSize;
   grid-template-columns: repeat($gridCols, $gridSize);
-  grid-auto-rows: $gridSize + 0.22vh;
+  grid-auto-rows: $gridSize + 3.3vh;
   gap: $gridGap;
   overflow-y: scroll;
+  padding-inline: 5px;
 }
 
 // inventory slots
@@ -285,15 +342,37 @@ button:active {
   background-color: $secondaryColor;
   background-repeat: no-repeat;
   background-position: center;
-  border-radius: 2.5%;
+  border-radius: 13.5%;
   image-rendering: -webkit-optimize-contrast;
   position: relative;
-  background-size: 7vh;
+  background-size: 9vh;
   color: $textColor;
-  border-color: rgba(0, 0, 0, 0.2);
+  border-color: rgba(255, 255, 255, 0.2);
   border-style: inset;
   border-width: 1px;
+  overflow: clip;
 }
+
+.inventory-slot::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at -170% -170%, #ebebebbd 10%, #00000077 100%);
+  border-radius: 13.5%;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.3;
+
+}
+
+.inventory-slot > * {
+  position: relative;
+  z-index: 1;
+}
+
 
 .inventory-slot-label-box {
   background-color: $mainColor;
@@ -351,9 +430,12 @@ button:active {
 
 .item-slot-info-wrapper {
   display: flex;
+  width: 100%;
   flex-direction: row;
+  justify-content: space-between !important;
   align-self: flex-end;
   padding: 3px;
+  padding-inline: 6px;
   gap: 3px;
   p {
     font-size: 12px;
@@ -510,11 +592,20 @@ button:active {
 }
 
 .weight-bar {
-  background: rgba(0, 0, 0, 0.4);
+  // background: rgba(0, 0, 0, 0.4);
   border: 1px inset rgba(0, 0, 0, 0.1);
-  height: 0.8vh;
+  height: 1.5vh;
   border-radius: 5%;
   overflow: hidden;
+}
+
+.weight-container {
+  margin-top: 4rem;
+}
+.weight-text {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1rem;
 }
 
 .transition-fade-enter {
@@ -551,4 +642,62 @@ button:active {
 .transition-slide-up-exit-active {
   transform: translateY(200px);
   transition: all 200ms;
+}
+.inventory-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.with-hotslots {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+}
+
+// .hot-slots-wrapper {
+//   display: flex;
+//   flex-direction: column;
+//   background-color: rgba(0, 0, 0, 0.4);
+//   border-radius: 4px;
+//   margin-right: 8px;
+//   width: fit-content;
+//   flex-grow: 1;
+
+// }
+
+// .hot-slots-header-wrapper {
+//   display: flex;
+//   justify-content: space-between;
+//   align-items: center;
+//   padding: 8px;
+//   // border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+
+// }
+
+.hot-slots-container {
+  display: flex;
+  flex-direction: column;
+  padding: 4px;
+  gap: 4px;
+  height: 100%;
+}
+.hot-slots-wrapper {
+  display: flex;
+  flex-direction: column;
+  // background-color: rgba(0, 0, 0, 0.4);
+  border-radius: 4px;
+  margin-right: 8px;
+}
+
+.hot-slots-container {
+  display: flex;
+  flex-direction: column;
+  padding: 4px;
+  gap: $gridGap;
+
+  .inventory-slot {
+    width: $gridSize;
+    height: 130px;
+    margin: 0;
+  }
 }
